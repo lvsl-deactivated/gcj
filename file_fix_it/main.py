@@ -2,9 +2,6 @@
 # coding: utf-8
 
 def count_mkdirs(old, new):
-    old = sorted(old, key=lambda d: d.count('/'))
-    new = sorted(new, key=lambda d: d.count('/'))
-
     G = {}
 
     for path in old:
