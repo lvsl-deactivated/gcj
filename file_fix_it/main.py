@@ -1,18 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-def count_mkdirs(old, new):
-    G = {}
 
-    for path in old:
-        g = G
-        for d in path[1:].split('/'):
-            if d not in g:
-                g[d] = {}
-            g = g[d]
-
+def _build_tree(paths, G=None):
+    if G is None:
+        G = {}
     count = 0
-    for path in new:
+    for path in paths:
         g = G
         for d in path[1:].split('/'):
             if d not in g:
@@ -20,7 +14,12 @@ def count_mkdirs(old, new):
                 count += 1
             g = g[d]
 
-    return count
+    return G, count
+
+
+def count_mkdirs(old, new):
+    return _build_tree(new, G=_build_tree(old)[0])[1]
+
 
 def main():
     T = int(raw_input())
